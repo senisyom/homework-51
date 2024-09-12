@@ -4,34 +4,40 @@ import './App.css';
 
 
 
-const App = () => {
+const App: React.FC = () => {
   const baseNumbers = [5, 11, 16, 23, 32]
-  const [number, setNumber] = useState<number[]>(baseNumbers)
+  const [numbers, setNumbers] = useState<number[]>(baseNumbers)
   
-   const generateRandomNumbers = () => {
-    const newNumbers: number[] = [];
+  const createNumbers = () => {
+
+    let newNumbers: number[] = []
+
     while (newNumbers.length < 5) {
-      const randomNum = Math.floor(Math.random() * (36 - 5 + 1)) + 5; // Генерация числа от 5 до 36
-      if (!newNumbers.includes(randomNum)) { // Проверка на уникальность
-        newNumbers.push(randomNum);
+      const randomNumber = Math.floor(Math.random() * (36 - 5 + 1)) + 5;
+
+      if (!newNumbers.includes(randomNumber)) {
+        newNumbers.push(randomNumber)
       }
     }
-    newNumbers.sort((a, b) => a - b); // Сортировка по возрастанию
-    return newNumbers;
-  };
+    newNumbers.sort((a, b) => a - b);
+    setNumbers(newNumbers)
+  }
 
-  return (
-    <div className="app">
-      <div className="numbers">
-        {number.map((num) => (
-          <Ball key={num} number={num} />
-        ))}
+
+    return (
+      <div className="app">
+        <div className="numbers">
+          {numbers.map((num) => (
+            <Ball key={num} number={num} />
+          ))}
+        </div>
+        <button onClick={createNumbers}>
+          New numbers
+        </button>
       </div>
-      <button onClick={generateRandomNumbers}>
-        New numbers
-      </button>
-    </div>
-  )
-}
+    )
+  }
+
+  
 
 export default App
